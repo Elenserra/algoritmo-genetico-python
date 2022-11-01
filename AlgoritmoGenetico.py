@@ -2,18 +2,15 @@
 import random
 import numpy as np
 
+T = 60                  #periodo
 tamPopulacao = 2        #quatidade de individuos da população 
-tamCromossomo = 11     #tipos de veiculos
+tamIndividuo = 3        #quatidade de rotas
+tamCromossomo = 4       #tipos de veiculos
 probCruzamento = 0.95   #probabilidade de cruzamento
-probMutacao = 0.1        #probabilidade de mutação
+probMutacao = 0.1       #probabilidade de mutação
 numGeracoes = 1
-T = 60     #periodo
 
-#  { |1 3 5|     |9 8 6|    
-#    |2 4 3|2x3  |5 2 4|2x3
 
-#    |2 6 3|     |7 8 5|  
-#    |5 8 6|2x3  |3 5 7|2x3   2x2 }
 
 #iniciando uma população aleatoria
 individuo = []   #uma solução
@@ -21,9 +18,9 @@ populacao = []  #conjunto de soluções
 
 for k in range(tamPopulacao): #tamanho da população
 
-    for i in range(2): #linha individuo
+    for i in range(tamIndividuo): #linha individuo
         linhaIndividuo = []
-        for j in range(3): #coluna individuo
+        for j in range(tamCromossomo): #coluna individuo
             linhaIndividuo.append(random.randint(0,T))
         individuo.append(linhaIndividuo) 
 
@@ -32,7 +29,7 @@ populacao.append(individuo)
 
 #imprimindo a população
 print("\n __Populacao aleatoria__")
-for i in populacao:
+for i in individuo:
     print(i, end="\n")
 print("_"*20)
 
