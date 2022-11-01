@@ -13,60 +13,57 @@ numGeracoes = 1         #número de gerações
 
 
 #iniciando uma população aleatoria
-individuo = []   #uma solução
+individuo = []  #uma solução
 populacao = []  #conjunto de soluções
 
 for k in range(tamPopulacao): #tamanho da população
+    #sortea um valor aleatorio para cada individuo
+    individuo = np.random.randint(T, size=(tamIndividuo, tamCromossomo)) 
 
-    for i in range(tamIndividuo): #linha individuo
-        linhaIndividuo = []
-        for j in range(tamCromossomo): #coluna individuo
-            linhaIndividuo.append(random.randint(0,T))
-        individuo.append(linhaIndividuo) 
-
-populacao.append(individuo)
+    populacao.append(individuo) #adiciona esse individuo na populacao
 
 
-#imprimindo os individuos da população
+#imprimindo a população
 print("\n __Populacao aleatoria__")
-for i in individuo:
+for i in populacao:
     print(i, end="\n")
 print("_"*20)
 
 
 
-
-"""
 #variaveis do AG
-aptidao = np.zeros(tamPopulacao)
-novaGeracao = np.zeros((tamPopulacao, tamCromossomo))
-novaPopulacao = np.zeros((tamPopulacao, tamCromossomo))
+aptidao = np.zeros(tamIndividuo)
+novaGeracao = np.zeros((tamIndividuo, tamCromossomo))
+novoIndividuo = np.zeros((tamIndividuo, tamCromossomo))
+novaPopulacao = []
 
 #iniciando AG
 geracoes = 1
 while (geracoes<=numGeracoes):
-    novosIndividuos = 0
-    while (novosIndividuos<(tamPopulacao-1)): 
+    cont = 0 
+    while (cont<(tamPopulacao-1)): 
 
         #calculo da aptidao dos individuos 
         totalAptidao = 0
-        for i in range(tamPopulacao):
-            for j in range(tamCromossomo):
-                novaPopulacao[i][j] = ((populacao[i][j] *100) + 1000)
-                aptidao[i] = novaPopulacao[i][j]
-            totalAptidao = aptidao[i] + totalAptidao
+        for k in range(tamPopulacao):
+            for i in range(tamIndividuo):
+                for j in range(tamCromossomo):
+                    novoIndividuo[i][j] = ((individuo[i][j] *100) + 1000)
+                    aptidao[i] = novoIndividuo[i][j]
+                totalAptidao = aptidao[i] + totalAptidao
+        novaPopulacao.append(novoIndividuo)
 
         #print(totalAptidao)
 
-        
         #população apos o fitness
-        print("\n")
+        print("\n __Populacao com fitness__")
         for i in novaPopulacao:
             print(i, end="\n")
+        print("_"*20, "\n")
         
-
+        
         #identificando a probabilidade de cada individuo
-        probIndividuo = np.zeros(tamPopulacao) #probabilidade do individuo
+        probIndividuo = np.zeros((tamPopulacao)) #probabilidade do individuo
         probIndividuoTotal = np.zeros(tamPopulacao)  #probabilidade do individuo total
         probIndividuo = (1/totalAptidao)*aptidao
 
@@ -144,11 +141,9 @@ while (geracoes<=numGeracoes):
 
 
 
-
+"""
 #nova geracao apos o AG
 print("\n ___ Nova Geracao___")
 for i in populacao:
     print(i, end="\n")
-
-
 """
