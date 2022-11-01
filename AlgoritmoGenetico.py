@@ -19,7 +19,6 @@ populacao = []  #conjunto de soluções
 for k in range(tamPopulacao): #tamanho da população
     #sortea um valor aleatorio para cada individuo
     individuo = np.random.randint(T, size=(tamIndividuo, tamCromossomo)) 
-
     populacao.append(individuo) #adiciona esse individuo na populacao
 
 
