@@ -13,11 +13,12 @@ numGeracoes = 1         #número de gerações
 
 
 #iniciando uma população aleatoria
-individuo = []  #uma solução
+individuo = np.zeros((tamIndividuo, tamCromossomo))  #uma solução
 populacao = []  #conjunto de soluções
 
+
 for k in range(tamPopulacao): #tamanho da população
-    #sortea um valor aleatorio para cada individuo
+    #cria um individuo, sorteando valores aleatorios
     individuo = np.random.randint(T, size=(tamIndividuo, tamCromossomo)) 
     populacao.append(individuo) #adiciona esse individuo na populacao
 
@@ -29,11 +30,9 @@ for i in populacao:
 print("_"*20)
 
 
-
 #variaveis do AG
-aptidao = np.zeros(tamIndividuo)
+aptidao = []
 novaGeracao = np.zeros((tamIndividuo, tamCromossomo))
-novoIndividuo = np.zeros((tamIndividuo, tamCromossomo))
 novaPopulacao = []
 
 #iniciando AG
@@ -44,17 +43,13 @@ while (geracoes<=numGeracoes):
 
         #calculo da aptidao dos individuos 
         totalAptidao = 0
-        for k in range(tamPopulacao):
-            for i in range(tamIndividuo):
-                for j in range(tamCromossomo):
-                    novoIndividuo[i][j] = ((individuo[i][j] *100) + 1000)
-                    aptidao[i] = novoIndividuo[i][j]
-                totalAptidao = aptidao[i] + totalAptidao
-        novaPopulacao.append(novoIndividuo)
+        for i in populacao:
+            novaPopulacao.append(((i*100) + 1000))
+            
 
         #print(totalAptidao)
 
-        #população apos o fitness
+        #imprimi a população apos o fitness
         print("\n __Populacao com fitness__")
         for i in novaPopulacao:
             print(i, end="\n")
