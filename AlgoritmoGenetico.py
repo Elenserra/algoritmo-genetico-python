@@ -8,7 +8,7 @@ tamIndividuo = 3        #quatidade de rotas
 tamCromossomo = 4       #tipos de veiculos
 probCruzamento = 0.95   #probabilidade de cruzamento
 probMutacao = 0.1       #probabilidade de mutação
-numGeracoes = 1
+numGeracoes = 1         #número de gerações
 
 
 
@@ -27,7 +27,7 @@ for k in range(tamPopulacao): #tamanho da população
 populacao.append(individuo)
 
 
-#imprimindo a população
+#imprimindo os individuos da população
 print("\n __Populacao aleatoria__")
 for i in individuo:
     print(i, end="\n")
