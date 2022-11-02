@@ -34,6 +34,7 @@ print("_"*20)
 aptidao = []
 novaGeracao = np.zeros((tamIndividuo, tamCromossomo))
 novaPopulacao = []
+individuo=[]
 
 #iniciando AG
 geracoes = 1
@@ -45,9 +46,13 @@ while (geracoes<=numGeracoes):
         totalAptidao = 0
         for i in populacao:
             novaPopulacao.append(((i*100) + 1000))
-            
-
-        #print(totalAptidao)
+        aptidao = sum(novaPopulacao) #soma das aptidoes 
+        #print(aptidao)
+        
+        for i in aptidao:
+            totalAptidao = totalAptidao+i
+        totalAptidao = sum(totalAptidao) #total da aptidao da populacao
+        
 
         #imprimi a população apos o fitness
         print("\n __Populacao com fitness__")
@@ -57,19 +62,19 @@ while (geracoes<=numGeracoes):
         
         
         #identificando a probabilidade de cada individuo
-        probIndividuo = np.zeros((tamPopulacao)) #probabilidade do individuo
-        probIndividuoTotal = np.zeros(tamPopulacao)  #probabilidade do individuo total
-        probIndividuo = (1/totalAptidao)*aptidao
+        probIndividuo = np.zeros((tamIndividuo)) #probabilidade do individuo
+        probIndividuoTotal = np.zeros((tamIndividuo))  #probabilidade do individuo total
+        probIndividuo = sum((1/totalAptidao)*aptidao)
 
 
         #roleta
-        for i in range(tamPopulacao):
+        for i in range(tamIndividuo):
             if (i==0):
                 probIndividuoTotal[i] = probIndividuo[i]
             else:
                 probIndividuoTotal[i] = probIndividuo[i] + probIndividuoTotal[i-1]
 
-        #print("probTotal: ", probIndividuoTotal)
+        print("probTotal: ", probIndividuoTotal)
 
         #sorteando os pais de acordo com a probabilidade
         roleta1 = random.uniform(0, 1)
