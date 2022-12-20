@@ -9,7 +9,7 @@ tipoVeiculos = 3       #tipos de veiculos
 probCruzamento = 0.95   #probabilidade de cruzamento
 probMutacao = 0.1       #probabilidade de mutação
 numGeracoes = 1         #número de gerações
-qntdVeiculos = [1,2,1] #veiculos disponiveis para cada tipo 
+qntdVeiculos = [12,8,14] #veiculos disponiveis para cada tipo 
 
 
 #iniciando uma população aleatoria
@@ -32,11 +32,13 @@ print("_"*20)
 
 
 veiculoEnviado = []
+viavel = True
 
 K = [100, 45, 67]
 S = 10
 
 for i in range(tamPopulacao):
+    print("Individuo ",(i+1))
     individuo = populacao[i] 
     for b in range(tipoVeiculos):
         soma=0
@@ -48,38 +50,44 @@ for i in range(tamPopulacao):
 
         # checar se veiculosEnviados nao ultrapassa a frota
         if soma > qntdVeiculos[b]:
-            print("Inviavel") 
+            viavel=False
             break
         else:
-            print("Viavel")
+            viavel=True
             for b in range(tipoVeiculos):
                 for r in range(rotas):
                     if individuo[b][r]==0:
                         H_br[b][r]=0
                     else:
                         H_br[b][r] = T/individuo[b][r]
-                        
-    veiculoEnviado.append(H_br)
+    print()
+    if viavel:
+        veiculoEnviado.append(H_br)
+        for i in veiculoEnviado:
+            print(i, end="\n")
+
+        #custo operacional 
+        co=0
+        for b in range(tipoVeiculos):
+            for r in range(rotas):
+                co = co + (K[b] * (individuo[b][r]))
+
+        cs=0                              
+        #custo social
+        for b in range(tipoVeiculos):
+            for r in range(rotas):
+                cs = cs + (S * (H_br[b][r]))               
+                
+        #fitness
+        fitness = co + cs
+        print("\nFitness: ", fitness)
+
     print("\n")
+
+                        
     
-for i in veiculoEnviado:
-    print(i, end="\n")
-
-    #custo operacional
-    co = 0
-    for b in range(tipoVeiculos):
-        for r in range(rotas):
-            co = co + K[b] * (individuo[b][r])
-
-    #custo social
-    cs = 0
-    for b in range(tipoVeiculos):
-        for r in range(rotas):
-            cs = cs + S * (H_br[b][r])
-
-#fitness
-fitness = co + cs
-print("Fitness: ", fitness)
+    
+            
 
 
 
