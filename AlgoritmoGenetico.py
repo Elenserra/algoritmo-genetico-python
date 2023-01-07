@@ -9,7 +9,7 @@ tipoVeiculos = 3          #tipos de veiculos
 probCruzamento = 0.95     #probabilidade de cruzamento
 probMutacao = 0.1         #probabilidade de mutação
 numGeracoes = 1           #número de gerações
-qntdVeiculos = [1,2,3]  # ft_b - veiculos disponiveis para cada tipo 
+qntdVeiculos = [96,54,43]  # ft_b - veiculos disponiveis para cada tipo 
 
 K = [100, 45, 67]
 S = 10
