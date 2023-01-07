@@ -2,25 +2,34 @@
 import random
 import numpy as np
 
-T = 60                  #periodo
-tamPopulacao = 2        #quatidade de individuos da população 
-rotas = 3               #quatidade de rotas
-tipoVeiculos = 3       #tipos de veiculos
-probCruzamento = 0.95   #probabilidade de cruzamento
-probMutacao = 0.1       #probabilidade de mutação
-numGeracoes = 1         #número de gerações
-qntdVeiculos = [12,8,14] #veiculos disponiveis para cada tipo 
+T = 60                    #periodo
+tamPopulacao = 6          #quantidade de individuos da população 
+rotas = 3                 #quantidade de rotas
+tipoVeiculos = 3          #tipos de veiculos
+probCruzamento = 0.95     #probabilidade de cruzamento
+probMutacao = 0.1         #probabilidade de mutação
+numGeracoes = 1           #número de gerações
+qntdVeiculos = [1,2,3]  # ft_b - veiculos disponiveis para cada tipo 
+
+K = [100, 45, 67]
+S = 10
 
 
 #iniciando uma população aleatoria
 populacao = []  #conjunto de individuos
 
-for k in range(tamPopulacao): 
-    #cria um individuo, sorteando valores aleatorios da quantidade de veiculos disponiveis para cada tipo
+individuoPai = np.zeros((tipoVeiculos, rotas))
+for b in range(tipoVeiculos):
+  for r in range(rotas):
+    individuoPai[b][r] = random.randint(0, qntdVeiculos[b])
+populacao.append(individuoPai)
+
+#cria um individuo, sorteando valores sem ultrapassar o individuoPai 
+for i in range(tamPopulacao-1): 
     individuo = np.zeros((tipoVeiculos, rotas))
     for b in range(tipoVeiculos):
         for r in range(rotas):
-            individuo[b][r] = random.randint(0, qntdVeiculos[b])
+            individuo[b][r] = random.randint(0, individuoPai[b][r])
     populacao.append(individuo) 
 
 
@@ -31,11 +40,8 @@ for individuo in populacao:
 print("_"*20)
 
 
-veiculoEnviado = []
-viavel = True
 
-K = [100, 45, 67]
-S = 10
+viavel = True
 
 for i in range(tamPopulacao):
     print("Individuo ",(i+1))
@@ -62,9 +68,6 @@ for i in range(tamPopulacao):
                         H_br[b][r] = T/individuo[b][r]
     print()
     if viavel:
-        veiculoEnviado.append(H_br)
-        for i in veiculoEnviado:
-            print(i, end="\n")
 
         #custo operacional 
         co=0
