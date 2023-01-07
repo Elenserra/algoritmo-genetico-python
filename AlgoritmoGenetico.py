@@ -16,7 +16,7 @@ S = 10
 
 
 #iniciando uma população aleatoria
-populacao = []  #conjunto de individuos
+populacao = []  
 
 individuoPai = np.zeros((tipoVeiculos, rotas))
 for b in range(tipoVeiculos):
